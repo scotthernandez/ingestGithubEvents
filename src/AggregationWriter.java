@@ -84,10 +84,11 @@ class AggregationWriter{
 			
 			BasicDBObject dbObjBaseIdValues = (BasicDBObject) queryBldr.get();
 			
-			//long periodMS = System.currentTimeMillis();
-			//TODO parse created_at field.
 			long periodMS = System.currentTimeMillis();
-			periodMS = Date.parse((String)srcDoc.get("created_at"));
+			try {
+				periodMS = Date.parse((String)srcDoc.get("created_at"));
+			} catch (Exception e) {}
+			
 			Calendar periodDate = Period.MINUTELY.getPeriodDate(periodMS);
 
 			//add periods for this aggregation and update on the server
